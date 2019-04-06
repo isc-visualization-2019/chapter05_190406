@@ -12,6 +12,10 @@ glimpse(anscombe)
 map_dbl(1:4, 
         function(x){cor(anscombe[, x], anscombe[, x+4])})
 
+# shortcut
+map_dbl(1:4,
+        ~cor(anscombe[,.], anscombe[, .+4]))
+
 c1 <- ggplot(anscombe, aes(x = x1, y = y1)) +
   geom_point() +
   geom_smooth(method = "lm")
@@ -90,14 +94,15 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width)) +
   geom_point(aes(x=Petal.Length, y=Petal.Width), color = "red") + 
   labs(x="Length", y="Width")
 
-
 #---------------------------------------------------------
 # 데이터
+# wrangling에 따라 동일한 데이터셋도 다양하게 시각화
 #---------------------------------------------------------
 load("iris.RData")
 
 # 아래 각각의 데이터셋 구조를 살펴봅시다
 # iris 데이터셋의 변형에 따른 열은 어떻게 달라졌나요?
+
 str(iris)
 str(iris.wide)
 str(iris.tidy)
@@ -128,4 +133,3 @@ iris.tidy <- iris %>%
 
 # 실습 데이터 cafe.csv & judge_b.csv를 gather 해보세요
 df_cafe <- read_csv("data/cafe.csv")
-
